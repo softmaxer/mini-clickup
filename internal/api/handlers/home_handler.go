@@ -1,7 +1,11 @@
 package handlers
 
-import "net/http"
+import (
+	"net/http"
 
-func HomeHandler(w http.ResponseWriter, r * http.Request) {
-  return
+	"gorm.io/gorm"
+)
+
+func HomeHandler(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
+	return
 }

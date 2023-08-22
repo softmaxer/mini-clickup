@@ -8,14 +8,15 @@ import (
 	"gorm.io/gorm"
 )
 
-func AddTask(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
-	var tsk models.Task
-	err := json.NewDecoder(r.Body).Decode(&tsk)
+func LogTask(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
+	var ltsk models.TaskLog
+	err := json.NewDecoder(r.Body).Decode(&ltsk)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	err = db.Create(&tsk).Error
+
+	err = db.Create(&ltsk).Error
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}

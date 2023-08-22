@@ -8,14 +8,13 @@ import (
 	"gorm.io/gorm"
 )
 
-func AddTask(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
+func RemoveTask(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	var tsk models.Task
 	err := json.NewDecoder(r.Body).Decode(&tsk)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
+		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
-	err = db.Create(&tsk).Error
+	err = db.Delete(&tsk).Error
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
