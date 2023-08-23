@@ -9,12 +9,12 @@ import (
 )
 
 
-func ExportLogs(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
-  var tsklogs []models.TaskLog
+func ExportTasks(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
+  var tsks []models.Task
   taskIDStr := r.URL.Query().Get("user")
-  db.Where("user = ?", taskIDStr).Find(&tsklogs)
+  db.Where("user = ?", taskIDStr).Find(&tsks)
 
-  jsonData, err := json.Marshal(tsklogs)
+  jsonData, err := json.Marshal(tsks)
   if err != nil {
     http.Error(w, err.Error(), http.StatusInternalServerError)
     return
