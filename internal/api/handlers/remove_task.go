@@ -14,7 +14,12 @@ func RemoveTask(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
-	err = db.Delete(&tsk).Error
+	err = db.Delete(&models.TaskLog{}, tsk.User).Error
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+	err = db.Delete(&models.Task{}, tsk.User).Error
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
