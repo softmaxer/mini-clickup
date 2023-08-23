@@ -38,5 +38,9 @@ func SetupRoutes() *http.ServeMux {
     handlers.ExportTasks(db, w, r)
   })
 
+  mux.HandleFunc("/analyse", func(w http.ResponseWriter, r *http.Request) {
+    handlers.AnalyseHandler(db, w, r)
+  })
+
 	return mux
 }
