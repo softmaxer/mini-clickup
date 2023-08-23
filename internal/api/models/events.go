@@ -10,6 +10,7 @@ type Task struct {
 	Finished  bool    `json:"finished"`
 	StartDate float64 `json:"start_date"`
 	EndDate   float64 `json:"end_date"`
+  Importance string `json:"importance"`
 }
 
 type TaskLog struct {

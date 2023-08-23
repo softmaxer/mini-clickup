@@ -30,5 +30,9 @@ func SetupRoutes() *http.ServeMux {
 		handlers.RemoveTask(db, w, r)
 	})
 
+  mux.HandleFunc("/export", func(w http.ResponseWriter, r *http.Request) {
+    handlers.ExportLogs(db, w, r)
+  })
+
 	return mux
 }

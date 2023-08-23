@@ -13,14 +13,13 @@ func RemoveTask(db *gorm.DB, w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&tsk)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
-	}
-	err = db.Delete(&models.TaskLog{}, tsk.User).Error
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+    return
 	}
 
-	err = db.Delete(&models.Task{}, tsk.User).Error
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+  var tsklogs []models.TaskLog
+  var tsks []models.Task
+  db.Where("task_name = ?", tsk.TaskName).Find(&tsklogs)
+  db.Where("task_name = ?", tsk.TaskName).Find(&tsks)
+  db.Delete(&tsklogs)
+  db.Delete(&tsks)
 }
