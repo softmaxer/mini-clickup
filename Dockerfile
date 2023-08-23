@@ -1,6 +1,6 @@
-from golang:1.21-alpine as builder
+FROM golang:1.21.0-bookworm as builder
 WORKDIR /app
 COPY . .
-RUN go build -o miniclickup ./cmd/main.go
+RUN CGO_ENABLED=1 go build -o miniclickup ./cmd/main.go
 
 CMD ["./miniclickup"]
